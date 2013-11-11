@@ -159,7 +159,7 @@ output_warnings(Warnings) ->
 -spec new_plt_path(Config::rebar_config:config(),
                    File::file:filename()) -> file:filename().
 new_plt_path(Config, File) ->
-    AppName = rebar_app_utils:app_name(File),
+    {_, AppName} = rebar_app_utils:app_name(Config, File),
     DialyzerOpts = rebar_config:get(Config, dialyzer_opts, []),
     case proplists:get_value(plt, DialyzerOpts) of
         undefined ->
@@ -175,7 +175,7 @@ new_plt_path(Config, File) ->
 -spec existing_plt_path(Config::rebar_config:config(),
                         File::file:filename()) -> file:filename().
 existing_plt_path(Config, File) ->
-    AppName = rebar_app_utils:app_name(File),
+    {_, AppName} = rebar_app_utils:app_name(Config, File),
     DialyzerOpts = rebar_config:get(Config, dialyzer_opts, []),
     Home = os:getenv("HOME"),
     case proplists:get_value(plt, DialyzerOpts) of
